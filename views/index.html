@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTMX Todo List</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Todo List</h1>
+
+      <form
+        hx-post="/todos"
+        hx-target="#todo-list"
+        hx-swap="innerHTML"
+        hx-on::after-request="this.reset()"
+      >
+        <input type="text" name="text" placeholder="What needs doing?" required />
+        <button type="submit">Add</button>
+      </form>
+
+      <div id="todo-list" hx-get="/todos" hx-trigger="load">
+        <p class="empty">Loading...</p>
+      </div>
+    </div>
+  </body>
+</html>
